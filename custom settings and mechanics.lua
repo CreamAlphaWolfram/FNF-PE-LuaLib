@@ -15,6 +15,8 @@ local csettings = {
 
     kadeStyleInput = false --if false, you get psych engine style; if true, hehehehe
     --may not be capable with low-end pcs
+
+    --you can add a wishOfLiving parameters in it so when bf get nega health he become op until he no longer has nega hp -Technoblade
 }
 
 local defaultHealthBarX
@@ -106,3 +108,4 @@ function onUpdate(elapsed)
     setProperty('healthBar.x',defaultHealthBarX-320*ingameHpBarPosit) --being a tabi health bar B)
 end
 --wahooooooo
+--remember: haven't tested
