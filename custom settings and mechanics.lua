@@ -1,5 +1,7 @@
 local csettings = {
     --edit it whatever you want
+    version = '0.9 / 1w22a', --just here for shit
+    showAnnoyingScriptVersion = true, --toggle it off please
     allowBonusHp = true, --tabi style, too lazy to do with custom health bars
     showHpValue = true,
     showBonusHp = true, --must have showHpValue and allowBonusHp activated at the same time
@@ -15,6 +17,7 @@ local csettings = {
 
     kadeStyleInput = false --if false, you get psych engine style; if true, hehehehe
     --may not be capable with low-end pcs
+    --doesn't work yet
 
     --you can add a wishOfLiving parameters in it so when bf get nega health he become op until he no longer has nega hp -Technoblade
 }
@@ -30,6 +33,10 @@ local regenValue=csettings.nhRegenPerSec
 local ingameHpBarPosit=0.0
 
 function onCreatePost()
+    if csettings.showAnnoyingScriptVersion then
+        makeLuaText('version','Current CreamyModify version: '..csettings.version,800,0,0)
+        addLuaText('version')
+    end
     if csettings.showHpValue then
         if csettings.showBonusHp then
             hpshowmode = 2 -- bonus hp

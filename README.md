@@ -1,7 +1,7 @@
 # FNF-PsychEngine-Lib
 Oh nothing  
-It's just some sorts of Friday Night Funkin' Cream take lib  
-And no I take <b>no</b> responsibility
+It's just some sorts of Friday Night Funkin' CreamyModify Lua lib  
+And no I take <b>no</b> responsibility /j
 ## Will I update this?
 Hell yea but bruh how about saying no  
 Y'know I'm lazy  
@@ -20,6 +20,6 @@ Hmm...
 also if you want to add smth into it just pull request, and if you find smth uncapable, check the version it does capable and if it is, UGH **REPORT THE ISSUE**  
 also function library.lua doesn't work rn so don't expect anything on it
 ## Current version?
-Ugh. *0.8*. Capable with *0.6.2*.
+Ugh. *0.9, 1w22a*. Capable with *0.6.2*.
 
 GitHub Desktop sometimes sucks y'know.
