@@ -21,3 +21,5 @@ also if you want to add smth into it just pull request, and if you find smth unc
 also function library.lua doesn't work rn so don't expect anything on it
 ## Current version?
 Ugh. *0.8*. Capable with *0.6.2*.
+
+GitHub Desktop sometimes sucks y'know.
