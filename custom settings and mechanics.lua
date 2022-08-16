@@ -5,11 +5,11 @@ local csettings = {
     showBonusHp = true, --must have showHpValue and allowBonusHp activated at the same time
     maximumHpBonus = 2.0, --default : 2.0
     negativeHealthReduce = 1.0, --default : 1.0
-    customStartingHealth = nil,
+    customStartingHealth = nil, --still not completely work yet
     --this makes you start at 100% HP but you still have 50% if you take a look
     --however you also have 50% negative hp, and if you lose them all, you blue ball.
     negaHealthRegen = true, --if false, you must rap to reach the normal and no one will help ya
-    nhRegenPerSec = .07, --must have negaHealthRegen active!
+    nhRegenPerSec = .03, --must have negaHealthRegen active!
 
     tiltScreenWhenRap = false, --i dont need to say about this am I right?
 
@@ -37,11 +37,11 @@ function onCreatePost()
             hpshowmode = 1 -- only property 'health'
         end
         if downscroll then
-            makeLuaText('healthTxt','50%',screenWidth*0.3,screenWidth*0.8,screenWidth*0.15)
+            makeLuaText('healthTxt','50%',screenWidth*0.3,screenWidth*0.65,screenHeight*0.1)
         else
-            makeLuaText('healthTxt','50%',screenWidth*0.3,screenWidth*0.8,screenWidth*0.85)
+            makeLuaText('healthTxt','50%',screenWidth*0.3,screenWidth*0.65,screenHeight*0.9)
         end
-        setTextSize('healthTxt',20)
+        setTextSize('healthTxt',30)
         addLuaText('healthTxt')
     end
     bonusHealth=csettings.negativeHealthReduce
@@ -61,22 +61,14 @@ function onUpdate(elapsed)
     if csettings.allowBonusHp then --yep
         if bonusHealth > maxBonusHealth then --capped at maximum
             bonusHealth = maxBonusHealth
+            health=2
         end
-        if (health+bonusHealth>=csettings.negativeHealthReduce) and (health+bonusHealth<=csettings.negativeHealthReduce+2) and (bonusHealth ~= csettings.negativeHealthReduce) then
-            health = health+bonusHealth-csettings.negativeHealthReduce
-            setHealth(health)
-            bonusHealth = 2
-        end
-        if health + bonusHealth <= 0 then --you blue ball when you have no health left
-            setHealth(0)
-            health=0
-        end
-        if ingameHpBarPosit < 0 then --keeping nega health
-            bonusHealth = bonusHealth - health + 0.000002
+        if bonusHealth < csettings.negativeHealthReduce then --keeping nega health
+            bonusHealth = bonusHealth + health - 0.000002
             setHealth(0.000002)
             health=0.000002
         end
-        if ingameHpBarPosit > 0 then --extra health
+        if bonusHealth > csettings.negativeHealthReduce then --extra health
             bonusHealth = bonusHealth + health - 2
             setHealth(2)
             health=2
@@ -87,9 +79,13 @@ function onUpdate(elapsed)
             health=2
         end
         if health < 0.000002 then
-            bonusHealth = bonusHealth - health + 0.000002
+            bonusHealth = bonusHealth + health - 0.000002
             setHealth(0.000002)
             health=0.000002
+        end
+        if health + bonusHealth <= 0 then --you blue ball when you have no health left
+            setHealth(0)
+            health=0
         end
         ingameHpBarPosit = bonusHealth - csettings.negativeHealthReduce
         if ingameHpBarPosit < 0 then
@@ -108,4 +104,3 @@ function onUpdate(elapsed)
     setProperty('healthBar.x',defaultHealthBarX-320*ingameHpBarPosit) --being a tabi health bar B)
 end
 --wahooooooo
---remember: haven't tested
