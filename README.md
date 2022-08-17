@@ -20,6 +20,6 @@ Hmm...
 also if you want to add smth into it just pull request, and if you find smth uncapable, check the version it does capable and if it is, UGH **REPORT THE ISSUE**  
 also function library.lua doesn't work rn so don't expect anything on it
 ## Current version?
-Ugh. *0.9, 1w22a*. Capable with *0.6.2*.
+Ugh. *0.9.2, 1w25a*. Capable with *0.6.2*.
 
 GitHub Desktop sometimes sucks y'know.

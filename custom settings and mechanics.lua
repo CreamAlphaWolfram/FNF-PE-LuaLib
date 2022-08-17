@@ -1,6 +1,6 @@
 local csettings = {
     --edit it whatever you want
-    version = '0.9 / 1w22a', --just here for shit
+    version = '0.9.2 / 1w25a', --just here for shit
     showAnnoyingScriptVersion = true, --toggle it off please
     allowBonusHp = true, --tabi style, too lazy to do with custom health bars
     showHpValue = true,
@@ -11,13 +11,12 @@ local csettings = {
     --this makes you start at 100% HP but you still have 50% if you take a look
     --however you also have 50% negative hp, and if you lose them all, you blue ball.
     negaHealthRegen = true, --if false, you must rap to reach the normal and no one will help ya
-    nhRegenPerSec = .03, --must have negaHealthRegen active!
+    nhRegenPerSec = .07, --must have negaHealthRegen active!
 
     tiltScreenWhenRap = false, --i dont need to say about this am I right?
 
     kadeStyleInput = false --if false, you get psych engine style; if true, hehehehe
     --may not be capable with low-end pcs
-    --doesn't work yet
 
     --you can add a wishOfLiving parameters in it so when bf get nega health he become op until he no longer has nega hp -Technoblade
 }
@@ -68,22 +67,36 @@ function onUpdate(elapsed)
     if csettings.allowBonusHp then --yep
         if bonusHealth > maxBonusHealth then --capped at maximum
             bonusHealth = maxBonusHealth
-            health=2
         end
-        if bonusHealth < csettings.negativeHealthReduce then --keeping nega health
+        if bonusHealth+health > csettings.negativeHealthReduce and bonusHealth+health < csettings.negativeHealthReduce-2 then
+            setHealth(bonusHealth+health-csettings.negativeHealthReduce)
+            health=getHealth()
+            bonusHealth=csettings.negativeHealthReduce
+        end
+        if bonusHealth+health < csettings.negativeHealthReduce then --keeping nega health
             bonusHealth = bonusHealth + health - 0.000002
             setHealth(0.000002)
             health=0.000002
-        end
-        if bonusHealth > csettings.negativeHealthReduce then --extra health
-            bonusHealth = bonusHealth + health - 2
-            setHealth(2)
-            health=2
+            if bonusHealth+health > csettings.negativeHealthReduce and bonusHealth+health < csettings.negativeHealthReduce-2 then
+                setHealth(bonusHealth+health-csettings.negativeHealthReduce)
+                health=getHealth()
+                bonusHealth=csettings.negativeHealthReduce
+            end
         end
         if health > 2 then -- when the ordinal hp is over 100%
             bonusHealth = bonusHealth + health - 2
             setHealth(2)
             health=2
+        end
+        if bonusHealth+health > csettings.negativeHealthReduce+2 then --extra health
+            bonusHealth = bonusHealth + health - 2
+            setHealth(2)
+            health=2
+            if bonusHealth+health > csettings.negativeHealthReduce and bonusHealth+health < csettings.negativeHealthReduce-2 then
+                setHealth(bonusHealth+health-csettings.negativeHealthReduce)
+                health=getHealth()
+                bonusHealth=csettings.negativeHealthReduce
+            end
         end
         if health < 0.000002 then
             bonusHealth = bonusHealth + health - 0.000002
@@ -95,7 +108,7 @@ function onUpdate(elapsed)
             health=0
         end
         ingameHpBarPosit = bonusHealth - csettings.negativeHealthReduce
-        if ingameHpBarPosit < 0 then
+        if bonusHealth < csettings.negativeHealthReduce then
             if regen then --nega neutral regen
                 bonusHealth = bonusHealth + regenValue * elapsed
             end
